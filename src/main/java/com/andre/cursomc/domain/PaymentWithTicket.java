@@ -20,9 +20,9 @@ public class PaymentWithTicket extends Payment // Pagamento com boleto
 		
 	}
 	
-	public PaymentWithTicket(Integer id, StatePayment state, Order order, Date dateExpired, Date datePayment) 
+	public PaymentWithTicket(Integer id, StatePayment state, Request request, Date dateExpired, Date datePayment) 
 	{
-		super(id, state, order);
+		super(id, state, request);
 		this.datePayment = datePayment;
 		this.dateExpired = dateExpired;
 		

@@ -23,20 +23,20 @@ public abstract class Payment implements Serializable
 	private Integer state;
 	
 	@OneToOne
-	@JoinColumn(name = "order_id")
+	@JoinColumn(name = "request_id")
 	@MapsId
-	private Order order;
+	private Request request;
 	
 	public Payment() 
 	{
 		
 	}
 
-	public Payment(Integer id, StatePayment state, Order order) 
+	public Payment(Integer id, StatePayment state, Request request) 
 	{
 		this.id = id;
 		this.state = state.getCod();
-		this.order = order;
+		this.request = request;
 	}
 
 	public Integer getId() 
@@ -59,14 +59,14 @@ public abstract class Payment implements Serializable
 		this.state = state.getCod();
 	}
 
-	public Order getOrder() 
+	public Request getRequest() 
 	{
-		return order;
+		return request;
 	}
 
-	public void setOrder(Order order) 
+	public void setRequest(Request request) 
 	{
-		this.order = order;
+		this.request = request;
 	}
 
 	@Override

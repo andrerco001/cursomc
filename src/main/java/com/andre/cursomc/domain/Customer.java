@@ -40,7 +40,7 @@ public class Customer implements Serializable
 	private Set<String> phones = new HashSet<>();
 
 	@OneToMany(mappedBy = "customer")
-	private List<Order> orders = new ArrayList<>();
+	private List<Request> requests = new ArrayList<>();
 
 	public Customer() 
 	{
@@ -126,14 +126,14 @@ public class Customer implements Serializable
 		this.phones = phones;
 	}
 
-	public List<Order> getOrders() 
+	public List<Request> getRequests() 
 	{
-		return orders;
+		return requests;
 	}
 
-	public void setOrders(List<Order> orders) 
+	public void setRequests(List<Request> requests) 
 	{
-		this.orders = orders;
+		this.requests = requests;
 	}
 
 	@Override

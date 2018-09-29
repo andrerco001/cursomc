@@ -33,7 +33,10 @@ public class Product implements Serializable
 	)
 	private List<Category> categories = new ArrayList<>();
 	
-	public Product() {}
+	public Product() 
+	{
+		
+	}
 
 	public Product(Integer id, String name, Double price) 
 	{

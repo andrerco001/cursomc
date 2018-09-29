@@ -97,7 +97,4 @@ public class City implements Serializable
 		return true;
 	}
 
-
-
-
 }

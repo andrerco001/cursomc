@@ -13,7 +13,7 @@ import com.andre.cursomc.domain.CardPayment;
 import com.andre.cursomc.domain.Category;
 import com.andre.cursomc.domain.City;
 import com.andre.cursomc.domain.Customer;
-import com.andre.cursomc.domain.Order;
+import com.andre.cursomc.domain.Request;
 import com.andre.cursomc.domain.Payment;
 import com.andre.cursomc.domain.PaymentWithTicket;
 import com.andre.cursomc.domain.Product;
@@ -24,7 +24,7 @@ import com.andre.cursomc.repositories.AdressRepository;
 import com.andre.cursomc.repositories.CategoryRepository;
 import com.andre.cursomc.repositories.CityRepository;
 import com.andre.cursomc.repositories.CustomerRepository;
-import com.andre.cursomc.repositories.OrderRepository;
+import com.andre.cursomc.repositories.RequestRepository;
 import com.andre.cursomc.repositories.PaymentRepository;
 import com.andre.cursomc.repositories.ProductRepository;
 import com.andre.cursomc.repositories.StateRepository;
@@ -51,7 +51,7 @@ public class CursomcApplication implements CommandLineRunner
 	private AdressRepository adressRepository;
 
 	@Autowired
-	private OrderRepository orderRepository;
+	private RequestRepository requestRepository;
 
 	@Autowired
 	private PaymentRepository paymentRepository;
@@ -114,18 +114,18 @@ public class CursomcApplication implements CommandLineRunner
 		// Order
 		SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy HH:mm");
 
-		Order order1 = new Order(null, sdf.parse("30/09/2017 10:32"), customer1, adress1);
-		Order order2 = new Order(null, sdf.parse("10/10/2017 19:35"), customer1, adress2);
+		Request request1 = new Request(null, sdf.parse("30/09/2017 10:32"), customer1, adress1);
+		Request request2 = new Request(null, sdf.parse("10/10/2017 19:35"), customer1, adress2);
 
-		Payment payment1 = new CardPayment(null, StatePayment.SETTLED, order1, 6);
-		order1.setPayment(payment1);
+		Payment payment1 = new CardPayment(null, StatePayment.SETTLED, request1, 6);
+		request1.setPayment(payment1);
 
-		Payment payment2 = new PaymentWithTicket(null, StatePayment.PENDING, order2, sdf.parse("20/10/2017 00:00"), null);
-		order2.setPayment(payment2);
+		Payment payment2 = new PaymentWithTicket(null, StatePayment.PENDING, request2, sdf.parse("20/10/2017 00:00"), null);
+		request2.setPayment(payment2);
 		
-		customer1.getOrders().addAll(Arrays.asList(order1, order2));
+		customer1.getRequests().addAll(Arrays.asList(request1, request2));
 
-		orderRepository.save(Arrays.asList(order1, order2));
+		requestRepository.save(Arrays.asList(request1, request2));
 		paymentRepository.save(Arrays.asList(payment1, payment2));
 
 	}
