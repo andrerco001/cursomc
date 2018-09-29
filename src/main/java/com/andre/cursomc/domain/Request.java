@@ -2,6 +2,8 @@ package com.andre.cursomc.domain;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.HashSet;
+import java.util.Set;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
@@ -10,6 +12,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 
 @Entity
@@ -33,6 +36,9 @@ public class Request implements Serializable // Pedido
 	@ManyToOne
 	@JoinColumn(name="delivery_address_id")
 	private Adress deliveryAddress;
+	
+	@OneToMany(mappedBy = "id.request")
+	private Set<ItemRequest> itens = new HashSet<>();
 
 	public Request() 
 	{
@@ -96,6 +102,16 @@ public class Request implements Serializable // Pedido
 	{
 		this.deliveryAddress = deliveryAddress;
 	}
+	
+	public Set<ItemRequest> getItens() 
+	{
+		return itens;
+	}
+
+	public void setItens(Set<ItemRequest> itens) 
+	{
+		this.itens = itens;
+	}
 
 	@Override
 	public int hashCode() {
@@ -124,5 +140,6 @@ public class Request implements Serializable // Pedido
 			return false;
 		return true;
 	}
+
 
 }

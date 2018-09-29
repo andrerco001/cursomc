@@ -13,6 +13,7 @@ import com.andre.cursomc.domain.CardPayment;
 import com.andre.cursomc.domain.Category;
 import com.andre.cursomc.domain.City;
 import com.andre.cursomc.domain.Customer;
+import com.andre.cursomc.domain.ItemRequest;
 import com.andre.cursomc.domain.Request;
 import com.andre.cursomc.domain.Payment;
 import com.andre.cursomc.domain.PaymentWithTicket;
@@ -24,6 +25,7 @@ import com.andre.cursomc.repositories.AdressRepository;
 import com.andre.cursomc.repositories.CategoryRepository;
 import com.andre.cursomc.repositories.CityRepository;
 import com.andre.cursomc.repositories.CustomerRepository;
+import com.andre.cursomc.repositories.ItemRequestRepository;
 import com.andre.cursomc.repositories.RequestRepository;
 import com.andre.cursomc.repositories.PaymentRepository;
 import com.andre.cursomc.repositories.ProductRepository;
@@ -32,7 +34,7 @@ import com.andre.cursomc.repositories.StateRepository;
 @SpringBootApplication
 public class CursomcApplication implements CommandLineRunner 
 {
-	@Autowired
+	@Autowired // automatically create dependency
 	private CategoryRepository categoryRepository;
 
 	@Autowired
@@ -55,6 +57,9 @@ public class CursomcApplication implements CommandLineRunner
 
 	@Autowired
 	private PaymentRepository paymentRepository;
+	
+	@Autowired
+	private ItemRequestRepository itemRequestRepository;
 
 	public static void main(String[] args) 
 	{
@@ -65,23 +70,23 @@ public class CursomcApplication implements CommandLineRunner
 	public void run(String... args) throws Exception 
 	{
 		// Category
-		Category cat1 = new Category(null, "Computing");
-		Category cat2 = new Category(null, "Office");
+		Category category1 = new Category(null, "Computing");
+		Category category2 = new Category(null, "Office");
 
 		// Product
-		Product p1 = new Product(null, "Computer", 2000.00);
-		Product p2 = new Product(null, "Printing", 800.00);
-		Product p3 = new Product(null, "Mouse", 80.00);
+		Product product1 = new Product(null, "Computer", 2000.00);
+		Product product2 = new Product(null, "Printing", 800.00);
+		Product product3 = new Product(null, "Mouse", 80.00);
 
-		cat1.getProducts().addAll(Arrays.asList(p1, p2, p3));
-		cat2.getProducts().addAll(Arrays.asList(p2));
+		category1.getProducts().addAll(Arrays.asList(product1, product2, product3));
+		category2.getProducts().addAll(Arrays.asList(product2));
 
-		p1.getCategories().addAll(Arrays.asList(cat1));
-		p2.getCategories().addAll(Arrays.asList(cat1, cat2));
-		p3.getCategories().addAll(Arrays.asList(cat1));
+		product1.getCategories().addAll(Arrays.asList(category1));
+		product2.getCategories().addAll(Arrays.asList(category1, category2));
+		product3.getCategories().addAll(Arrays.asList(category1));
 
-		categoryRepository.save(Arrays.asList(cat1, cat2));
-		productRepository.save(Arrays.asList(p1, p2, p3));
+		categoryRepository.save(Arrays.asList(category1, category2));
+		productRepository.save(Arrays.asList(product1, product2, product3));
 
 		// State
 		State state1 = new State(null, "Minas Gerais");
@@ -127,6 +132,20 @@ public class CursomcApplication implements CommandLineRunner
 
 		requestRepository.save(Arrays.asList(request1, request2));
 		paymentRepository.save(Arrays.asList(payment1, payment2));
+		
+		// Itens of requests
+		ItemRequest itemRequest1 = new ItemRequest(request1, product1, 0.00, 1, 2000.00);
+		ItemRequest itemRequest2 = new ItemRequest(request1, product3, 0.00, 2, 80.00);
+		ItemRequest itemRequest3 = new ItemRequest(request2, product2, 100.00, 1, 800.00);
+		
+		request1.getItens().addAll(Arrays.asList(itemRequest1, itemRequest2));
+		request2.getItens().addAll(Arrays.asList(itemRequest3));
+		
+		product1.getItens().addAll(Arrays.asList(itemRequest1));
+		product2.getItens().addAll(Arrays.asList(itemRequest3));
+		product3.getItens().addAll(Arrays.asList(itemRequest2));
+		
+		itemRequestRepository.save(Arrays.asList(itemRequest1, itemRequest2, itemRequest3));
 
 	}
 }
