@@ -3,10 +3,10 @@ package com.andre.cursomc.repositories;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
-import com.andre.cursomc.domain.Adress;
+import com.andre.cursomc.domain.Order;
 
 @Repository
-public interface AdressRepository extends JpaRepository<Adress, Integer>
+public interface OrderRepository extends JpaRepository<Order, Integer>
 {
 	
 
