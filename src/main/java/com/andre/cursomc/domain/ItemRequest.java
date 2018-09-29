@@ -5,12 +5,15 @@ import java.io.Serializable;
 import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity
 public class ItemRequest implements Serializable 
 {
 	private static final long serialVersionUID = 5432713910736413376L;
 	
-	@EmbeddedId // Id embutido em um tipo auxiliar
+	@JsonIgnore
+	@EmbeddedId // Id embedded in an auxiliary type
 	private ItemRequestPK id = new ItemRequestPK();
 	
 	private Double discount; // desconto
@@ -31,6 +34,7 @@ public class ItemRequest implements Serializable
 		this.price = price;
 	}
 	
+	@JsonIgnore // Ignore cyclic reference
 	public Request getRequest() 
 	{
 		return id.getRequest();

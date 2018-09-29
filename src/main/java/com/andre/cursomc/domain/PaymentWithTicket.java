@@ -5,14 +5,17 @@ import java.util.Date;
 import javax.persistence.Entity;
 
 import com.andre.cursomc.domain.enums.StatePayment;
+import com.fasterxml.jackson.annotation.JsonFormat;
 
 @Entity
 public class PaymentWithTicket extends Payment // Pagamento com boleto
 {
 	private static final long serialVersionUID = 1L;
 	
+	@JsonFormat(pattern = "dd/MM/yyyy")
 	private Date dateExpired;
 	
+	@JsonFormat(pattern = "dd/MM/yyyy")
 	private Date datePayment;
 	
 	public PaymentWithTicket() 
